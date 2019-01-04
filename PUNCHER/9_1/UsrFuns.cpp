@@ -51,12 +51,8 @@ void IntakeAutoControl(){//Controller Input To control Autonomous Logic Control
     if(Controller1.ButtonA.pressing() && !APressed){
         APressed=true;
         IntakeAutoEnabled=!IntakeAutoEnabled;//toggle intake auto enable
-        if(DriveMotorInverted==true){//if in fliper
-            DriveMotorInverted=false;//set drive dir for baller
-            FliperRequested=FliperPosIn;//put fliper in
-        }
     }
-    else if(!Controller1.ButtonA.pressing() && APressed)    APressed=false;
+    else if(!Controller1.ButtonA.pressing() &&APressed)    APressed=false;
 
     IntakeAuto();
 }
@@ -65,22 +61,16 @@ void IntakeManualControl(){//Controller Manual OverRide
     if(Controller1.ButtonR2.pressing()){
         IntakeManualControlEnabled=true;//halt auto intake function from running
         IntakeSetting=IntakePctOut;//out feed the intake
-        if(!R2Pressed){//if btnR2 pressed but was not pressed
-            FliperRequested=FliperPosIn;//put fliper in
-            IntakeAutoEnabled=true;//intake balls auto after manual overide
-            DriveMotorInverted=false;//Baller drive dir;
-        }
     }
-    else if(!Controller1.ButtonR2.pressing() && R2Pressed)  R2Pressed=false;
 
     else if(Controller1.ButtonA.pressing()){//btnR1->btnY;
         IntakeManualControlEnabled=true;
         IntakeSetting=IntakePctIn;
     }
     else if(IntakeManualControlEnabled){//first loop not manualy controlled
-        //IntakeAutoEnabled=false;
+        IntakeAutoEnabled=false;
         IntakeManualControlEnabled=false;
-        if(!IntakeAutoEnabled)  IntakeSetting=IntakePctStop;//if not auto controlled stop intakeing
+        // if(!IntakeAutoEnabled)  IntakeSetting=IntakePctStop;//if not auto controlled stop intakeing
     }
 }
 void IntakeComRumer(){
@@ -117,29 +107,29 @@ void PuncherPosRoter(){
     else if(PuncherPos==PuncherPositions::ShortMid) PuncherPos=PuncherPositions::ShortTop;
 }
 void PuncherPosControl(){
-    if(Controller1.ButtonUp.pressing() && !BPressed){
-        UpPressed=true;
-        PuncherPosRoter();
-        if(PuncherPos==PuncherPositions::ShortTop){
-            PuncherPosDeg=90;
-            PuncherPosSpinToControlRunEnabled=true;
-        }
-        else if(PuncherPos==PuncherPositions::ShortMid){
-            PuncherPosDeg=-90;
-            PuncherPosSpinToControlRunEnabled=true;
-        }
-    }
-    else if(!Controller1.ButtonUp.pressing() && BPressed)    BPressed=false;
+  if(Controller1.ButtonUp.pressing() && !UpPressed){
+    UpPressed=true;
+    PuncherPosDeg=90;
+    PuncherPosSpinToControlRunEnabled=true;
+  }
+  else if(!Controller1.ButtonUp.pressing() &&UpPressed)          UpPressed=false;
 
-    PuncherPosSpinTo(PuncherPosDeg,true);//spin motor to 0 && set motor to spin
+  else if(Controller1.ButtonDown.pressing() && !DownPressed){
+    DownPressed=true;
+    PuncherPosDeg=0;
+    PuncherPosSpinToControlRunEnabled=true;
+  }
+  else if(!Controller1.ButtonDown.pressing() &&DownPressed)          DownPressed=false;
 
+  PuncherPosSpinTo(PuncherPosDeg,true);
 }
+
 void PuncherControl(){
     PuncherPosControl();
     PuncherChargeControl();
 }
 //
-void FliperManualControl(){
+/*void FliperManualControl(){
     if(Controller1.ButtonL1.pressing()){
         FliperManualControlEnabled=true;
         FliperSMS(100);
@@ -174,11 +164,35 @@ void FliperPosControl(){
     if(FliperPosControlEnabled){
         FlipMotor.startRotateTo(FliperRequested,vex::rotationUnits::deg,100,vex::velocityUnits::pct);
     }
+}*/
+void CapFliperControll(){//fliper control
+    if(Controller1.ButtonL1.pressing()) {
+        FlipMotor.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct);
+        manualOverride = true;
+    }
+    else if(Controller1.ButtonL2.pressing()) {
+        FlipMotor.spin(vex::directionType::rev, 100, vex::velocityUnits::pct);
+        manualOverride = true;
+    }
+    else if(Controller1.ButtonX.pressing() && FliperMotorConBtnPressed==false){
+        FliperMotorConBtnPressed=true;
+        FlipMotor.startRotateFor(FliperMotorInverted ? -300 : 300,vex::rotationUnits::deg,100,vex::velocityUnits::pct);
+        FliperMotorInverted=!FliperMotorInverted;
+        manualOverride = false;
+    }
+    else if (manualOverride) {
+        FlipMotor.stop(vex::brakeType::brake);
+    }
+
+    if(!Controller1.ButtonX.pressing() && FliperMotorConBtnPressed==true){
+        FliperMotorConBtnPressed=false;
+        manualOverride = false;
+    }
 }
 void FliperControl(){
-    FliperManualControl();
-    if(!FliperManualControlEnabled) FliperPosControl();
-    FliperPosControl();
+    CapFliperControll();
+  //  if(!FliperManualControlEnabled) FliperPosControl();
+  //  FliperPosControl();
 }
 //------------------Drive voids----------------------//
 void setMechLFPower(int pct){
@@ -242,7 +256,8 @@ void ManualMechDriveCont(){
     if(std::abs(RightHorJoy)<15)  RightHorJoy=0;
 
     if(LeftVirtJoy!=0 || RightVirtJoy!=0 || LeftHorJoy!=0 || RightHorJoy!=0){
-        DriveMechPowerSend(LeftVirtJoy,RightVirtJoy,LeftHorJoy,RightHorJoy);
+      //  DriveMechPowerSend(LeftVirtJoy,RightVirtJoy,LeftHorJoy,RightHorJoy);
+      DriveArcadeSMS(LeftVirtJoy, LeftHorJoy, RightHorJoy);
     }
     else{
         setMechDrivePower(0,0,0,0);//Last loop before disableing; used to release drivemanualcontrol
@@ -274,6 +289,7 @@ void DriveCont_LockCont(){
       BRDriveMotor.setStopping(vex::brakeType::coast);
       FLDriveMotor.setStopping(vex::brakeType::coast);
       FRDriveMotor.setStopping(vex::brakeType::coast);
-        ManualMechDriveCont();
+      ManualMechDriveCont();
+
     }
 }

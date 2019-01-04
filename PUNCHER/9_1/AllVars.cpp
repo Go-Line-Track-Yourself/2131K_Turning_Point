@@ -85,6 +85,7 @@ bool Charged=false;//if the puncher is ready to fire
 bool PuncherSpinToControlEnabled=false;//Puncher is charging or fireing
 
 //PuncherPos
+bool DownPressed=false;
 bool PuncherPosSpinToControlEnabled=false;
 enum class PuncherPositions {ShortTop,ShortMid};
 PuncherPositions PuncherPos=PuncherPositions::ShortTop;
@@ -94,6 +95,9 @@ int PuncherPosDeg=10;
 bool PuncherPosSpinToControlRunEnabled=false;
 
 //Fliper
+bool FliperMotorInverted = false;
+bool manualOverride=true;
+bool FliperMotorConBtnPressed;
 bool FliperManualControlEnabled=false;
 bool FliperPosControlEnabled=true;
 int FliperPosIn=-5;
