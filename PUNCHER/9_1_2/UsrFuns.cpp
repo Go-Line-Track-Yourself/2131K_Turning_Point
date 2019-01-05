@@ -10,18 +10,16 @@ add tollerances to puncher pos control && puncher fire lockout
 //rstet timer if ball in puncher or
 void IntakeAutoUpDate(){//UpDate Sensors Code
     //Puncher UpDate
-    if(PuncSen.value(vex::analogUnits::pct)<PuncBallTal){
+    if(PuncSen.value(vex::analogUnits::pct)<PuncBallTal){//if there is pysicaly a ball
         GlobTime=0;//reset timer
         PuncBall=true;
         ComRum=false;
     }
-    else{
-        if(PuncherSpinToControlEnabled)           PuncBall=false;
-        else{
-            if(GlobTime>PuncBallTimeWait)   PuncBall=false;
-            else if(GlobTime>ComRumTime)    ComRum=true;
-            GlobTime=GlobTime+1;//add one to timer
-        }
+    else if(PuncherSpinToControlRunEnabled)  PuncBall=false;//if the punc in running and there is not a ball physicaly present
+    else{//delay for posible ball return
+        if(GlobTime>PuncBallTimeWait)   PuncBall=false;
+        else if(GlobTime>ComRumTime)    ComRum=true;
+        GlobTime=GlobTime+1;//add one to timer
     }
     //FeedBall UpDate
     if(FeedSen1.value(vex::analogUnits::pct)<Feed1BallTal || FeedSen2.value(vex::analogUnits::pct)<Feed2BallTal)    FeedBall=true;
@@ -44,54 +42,44 @@ void IntakeAuto(){//Autonomous Logic Control
 int IntakeStateUpDate(){//Task to UpDate IntakeAutoUpDate every second in the background
     while(1){
         IntakeAutoUpDate();
-        vex::task::sleep(5);
+        EndTimeSlice(5);
     }
 }
-/*void IntakeAutoControl(){//Controller Input To control Autonomous Logic Control
+void IntakeAutoControl(){//Controller Input To control Autonomous Logic Control
     if(Controller1.ButtonA.pressing() && !APressed){
         APressed=true;
         IntakeAutoEnabled=!IntakeAutoEnabled;//toggle intake auto enable
     }
-    else if(!Controller1.ButtonA.pressing() &&APressed)    APressed=false;
+    else if(!Controller1.ButtonA.pressing() && APressed)    APressed=false;
 
     IntakeAuto();
-}*/
-//right down  hold(outfeed) && toggle(DriveMode=Baller,Autointake=true,FLiperrequested=fliperposin,)
+}
 void IntakeManualControl(){//Controller Manual OverRide
-    if(Controller1.ButtonR2.pressing() && !R2Pressed){
+    if(Controller1.ButtonR2.pressing()){
         IntakeManualControlEnabled=true;//halt auto intake function from running
         IntakeSetting=IntakePctOut;//out feed the intake
-    }
-    else if(!Controller1.ButtonR2.pressing() &&R2Pressed)    R2Pressed=false;
-}
-    /*else if(Controller1.ButtonA.pressing()){//btnR1->btnY;
-        IntakeManualControlEnabled=true;
+        }
+    else if(!Controller1.ButtonR2.pressing() && R2Pressed)  R2Pressed=false;
+
+    else if(Controller1.ButtonY.pressing()){//btnR1->btnY;
+        IntakeManualControlEnabled=true;   
         IntakeSetting=IntakePctIn;
     }
     else if(IntakeManualControlEnabled){//first loop not manualy controlled
         IntakeAutoEnabled=false;
         IntakeManualControlEnabled=false;
-        // if(!IntakeAutoEnabled)  IntakeSetting=IntakePctStop;//if not auto controlled stop intakeing
+        if(!IntakeAutoEnabled)  IntakeSetting=IntakePctStop;//if not auto controlled stop intakeing
     }
-}*/
-void nateintakeman(){
-  if(Controller1.ButtonR1.pressing()) IntakeSMS(100);
-  else if(Controller1.ButtonR2.pressing()) IntakeSMS(-100);
-  else IntakeSMS(0);
-
-
-}
-
-void IntakeComRumer(){
-    if(ComRum && IntakeAutoEnabled && IntakeSetting==IntakePctStop)  vex::task ComRumerTask(ComRumerFun);
 }
 void IntakeControl(){//OverRide Control Code
     IntakeManualControl();
-  //  if(!IntakeManualControlEnabled) IntakeAutoControl();
+    if(!IntakeManualControlEnabled) IntakeAutoControl();
     IntakeSMS(IntakeSetting);
-    IntakeComRumer();
 }
+//
 
+
+//
 void PuncherChargeControl(){
     if(Controller1.ButtonA.pressing() && !APressed){
         APressed=true;
