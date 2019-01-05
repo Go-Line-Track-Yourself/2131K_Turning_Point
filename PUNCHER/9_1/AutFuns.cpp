@@ -15,7 +15,7 @@ int DriveRamping(){
     while(DriveRampingEnabled){
         LDR.TaskRun();
         RDR.TaskRun();
-        DriveSMS(LDR.Pct,RDR.Pct);
+        DriveSMS(LDR.Pct,LDR.Pct,RDR.Pct,RDR.Pct);
         vex::task::sleep(LDR.ChangeMsec);
     }
     return 1;
@@ -44,7 +44,7 @@ void DI(int L,int R){
     RDR.RequestedPct=R;
     LDR.Pct=L;
     RDR.Pct=R;
-    DriveSMS(LDR.Pct,RDR.Pct);
+    DriveSMS(LDR.Pct,LDR.Pct,RDR.Pct,RDR.Pct);
 }
 void Flip(int Val,bool Wait=true,int EndWait=FliperEndWait,int Pct=100){
     FliperRequested=Val;//used for both auton and usr needs to be reset
@@ -115,7 +115,7 @@ void Turn(double Dis,int LPct=25,int RPct=25,int EndWait=TurnEndWait){//-left,+r
     vex::task::sleep(EndWait);
 }
 
-void Drive(double Dis,int Pct=50,int EndWait=DriveEndWait,int Correction=1){
+void Drive(double Dis,int Pct=100,int EndWait=DriveEndWait,int Correction=1){
     double WheelCir=4*3.14159265;
     double Dir=SGN(Dis);
     double Rev=ABS(Dis)/WheelCir;
@@ -183,7 +183,7 @@ void DriveWait(bool stop){
 //need to do forward def
 void StopAllMotors(){
     DI(0,0);//set drive ramping to 0
-    DriveSMS(0,0);
+    DriveSMS(0,0,0,0);
     FlipMotor.stop();
     IntakeSMS(0);
     PuncherSMS(0);

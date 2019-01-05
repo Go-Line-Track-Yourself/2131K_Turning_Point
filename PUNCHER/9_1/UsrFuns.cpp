@@ -47,7 +47,7 @@ int IntakeStateUpDate(){//Task to UpDate IntakeAutoUpDate every second in the ba
         vex::task::sleep(5);
     }
 }
-void IntakeAutoControl(){//Controller Input To control Autonomous Logic Control
+/*void IntakeAutoControl(){//Controller Input To control Autonomous Logic Control
     if(Controller1.ButtonA.pressing() && !APressed){
         APressed=true;
         IntakeAutoEnabled=!IntakeAutoEnabled;//toggle intake auto enable
@@ -55,15 +55,16 @@ void IntakeAutoControl(){//Controller Input To control Autonomous Logic Control
     else if(!Controller1.ButtonA.pressing() &&APressed)    APressed=false;
 
     IntakeAuto();
-}
+}*/
 //right down  hold(outfeed) && toggle(DriveMode=Baller,Autointake=true,FLiperrequested=fliperposin,)
 void IntakeManualControl(){//Controller Manual OverRide
-    if(Controller1.ButtonR2.pressing()){
+    if(Controller1.ButtonR2.pressing() && !R2Pressed){
         IntakeManualControlEnabled=true;//halt auto intake function from running
         IntakeSetting=IntakePctOut;//out feed the intake
     }
-
-    else if(Controller1.ButtonA.pressing()){//btnR1->btnY;
+    else if(!Controller1.ButtonR2.pressing() &&R2Pressed)    R2Pressed=false;
+}
+    /*else if(Controller1.ButtonA.pressing()){//btnR1->btnY;
         IntakeManualControlEnabled=true;
         IntakeSetting=IntakePctIn;
     }
@@ -72,20 +73,28 @@ void IntakeManualControl(){//Controller Manual OverRide
         IntakeManualControlEnabled=false;
         // if(!IntakeAutoEnabled)  IntakeSetting=IntakePctStop;//if not auto controlled stop intakeing
     }
+}*/
+void nateintakeman(){
+  if(Controller1.ButtonR1.pressing()) IntakeSMS(100);
+  else if(Controller1.ButtonR2.pressing()) IntakeSMS(-100);
+  else IntakeSMS(0);
+
+
 }
+
 void IntakeComRumer(){
     if(ComRum && IntakeAutoEnabled && IntakeSetting==IntakePctStop)  vex::task ComRumerTask(ComRumerFun);
 }
 void IntakeControl(){//OverRide Control Code
     IntakeManualControl();
-    if(!IntakeManualControlEnabled) IntakeAutoControl();
+  //  if(!IntakeManualControlEnabled) IntakeAutoControl();
     IntakeSMS(IntakeSetting);
     IntakeComRumer();
 }
 
 void PuncherChargeControl(){
-    if(Controller1.ButtonR1.pressing() && !R1Pressed){
-        R1Pressed=true;
+    if(Controller1.ButtonA.pressing() && !APressed){
+        APressed=true;
         vex::task CompRumerTask(ComRumerFun);
         if(Charged && !PuncherPosSTS){//if charged && the puncherPos is not spining
             PuncherDeg+=80;
@@ -98,7 +107,7 @@ void PuncherChargeControl(){
             Charged=true;
         }
     }
-    else if(!Controller1.ButtonR1.pressing() && R1Pressed)  R1Pressed=false;
+    else if(!Controller1.ButtonA.pressing() && APressed)  APressed=false;
 
     PuncherSpinTo(PuncherDeg,true);//spin motor to puncherDeg && set motor to spin
 }

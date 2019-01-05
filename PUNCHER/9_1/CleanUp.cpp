@@ -34,7 +34,7 @@ void UserStart(){
     vex::task BrainScreenUsrTask(BrainScreenUsrFun);
     vex::task BallUpDateTask(IntakeStateUpDate);
 
-    IntakeAutoEnabled=true;
+    //IntakeAutoEnabled=true;
     DriveHold=false;
     FliperRequested=FliperPosIn;//auton uses this var
 }

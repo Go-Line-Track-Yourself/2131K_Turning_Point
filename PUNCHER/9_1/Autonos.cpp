@@ -1,3 +1,4 @@
+/*
 void AutFunFrontRed(){
     Drive(24,100,-1);
     Drive(3,50,500);
@@ -56,15 +57,23 @@ void AutFunBackRed(){
     Drive(-44,100);//get on platform
 }
 void AutFunBackBlue(){
-    Drive(24,100,-1);
-    Drive(3,50,250);
-    Turn(10);
-    Flip(FliperPosDown);
-    Drive(-9);
-    Flip(FliperPosIn);
-    Turn(-18);
-    IntakeAutoEnabled=false;
-    Drive(-42,100);//get on platform
+  Drive(24);
+  Drive(3,50);
+  vex::task::sleep(500);
+  IntakeAutoEnabled=false;
+  Drive(-28);
+  DriveRecon(-15,500);
+
+  Turn(-5);
+  Flip(FliperPosDown);
+  Flip(FliperPosIn);
+  Turn(5);
+
+  Turn(-5);
+  Puncher();
+  PuncherPosAut(90);
+  Puncher();
+
 }
 void Sniper(){
 
@@ -146,9 +155,17 @@ void BackSkills(){
 
 }
 void Testing(){
-    Turn(9);
-    EndTimeSlice(250);
-    Turn(-3);
+  Drive(24);
+  vex::task::sleep(500);
+  IntakeAutoEnabled=false;
+
+  Drive(-24);
+  Turn(11);
+  Puncher();
+  vex::task::sleep(500);
+  IntakeAutoEnabled=false;
+  PuncherPosAut(90);
+  Puncher();
 }
 
 void AutoSelRunFuns(){
@@ -172,4 +189,4 @@ void AutoSelRunFuns(){
         else if(AutoProg==ProgPot::Green)   AutFunBackBlue();//Normal
         else if(AutoProg==ProgPot::Yellow)  Sniper();//Sniper
     }
-}
+}*/
