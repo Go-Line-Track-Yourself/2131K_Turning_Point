@@ -1,0 +1,38 @@
+void FlagDetectRed {
+	//#region config_init
+	vision_9.setBrightness(50);
+	vision_9.setSignature(sig_Blue);
+	//#endregion config_init
+
+    //camera image is 316 pixels wide, so the center is 316/2
+    int screen_middle_x = 316 / 2;
+    bool linedup = false;
+    //take it slow
+   DriveSMS(100);
+    while(not linedup) {
+        //snap a picture
+        vision_9.takeSnapshot(sig_Blue);
+        //did we see anything?
+        if(vision_9.objectCount > 0) {
+            //where was the largest thing?
+            if(vision_9.largestObject.centerX < screen_middle_x - 5) {
+                //on the left, turn left
+                FRSMS(100);
+								BRSMS(100);
+            } else if (vision_9.largestObject.centerX > screen_middle_x + 5) {
+                //on the right, turn right
+                FLSMS(100);
+								BLSMS(100);
+            } else {
+                //in the middle, we're done lining up
+                linedup = true;
+                DriveSMS(0);
+								Controller1.rumble("...");
+
+            }
+        } else {
+            //saw nothing, relax
+            DriveSMS(0);
+        }
+    }
+}

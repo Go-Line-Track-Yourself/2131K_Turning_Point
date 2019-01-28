@@ -48,7 +48,7 @@ void PuncherPosSMS(int Pct){
         PuncherPosMotor.spin(vex::directionType::fwd,Pct,vex::velocityUnits::pct);
     }
 }
-void PuncherPosSpinTo(int Tar,bool SMS=true,bool Stop=true,bool Rel=false,int Pct=25,int Tal=5){
+void PuncherPosSpinTo(int Tar,bool SMS=true,bool Stop=true,bool Rel=false,int Pct=25,int Tal=10){
     if(Rel) Tar+=PuncherPosMotor.rotation(vex::rotationUnits::deg);
     int Dir=SGN(Tar-PuncherPosMotor.rotation(vex::rotationUnits::deg));
     if(std::abs(PuncherPosMotor.rotation(vex::rotationUnits::deg)-Tar)>Tal && PuncherPosSpinToControlRunEnabled){//outside of tal
@@ -217,7 +217,7 @@ int PuncherCalibration(){
     PuncherCalTime=Brain.timer(vex::timeUnits::msec);
 }*/
 
-void AutonSelFun(){
+/*void AutonSelFun(){
     if(AutSel1.value(vex::analogUnits::pct)>80){            //red back
         FeildPos=StartPos::BackRed;
         if(AutSel2.value(vex::percentUnits::pct)>70)        AutoProg = ProgPot::Yellow;
@@ -242,4 +242,4 @@ void AutonSelFun(){
         else if(AutSel2.value(vex::percentUnits::pct)>25)   AutoProg = ProgPot::Green;
         else                                                AutoProg = ProgPot::Pink;
     }
-}
+}*/

@@ -21,7 +21,7 @@ void ControllerScreenPrintDriveDir(){
         }
         DriveMotorInvertedWas=DriveMotorInverted;
 }
-void ControllerScreenPrintAutonos(bool UpdateVars=true){
+/*void ControllerScreenPrintAutonos(bool UpdateVars=true){
     if(UpdateVars)  AutonSelFun();
     if(FeildPos!=FeildPosControllerScreenPrintAutonosLast || AutoProg!=AutoProgControllerScreenPrintAutonosLast){//if there is a change requireing to reprint
         Controller1.Screen.clearLine();
@@ -60,7 +60,7 @@ void BrainScreenSetColor(bool render=false,bool UpdateVars=true){//set the backg
         if(render)  Brain.Screen.render();
     }
     FeildPosBrainScreenSetColorLast = FeildPos;//update last val
-}
+}*/
 void BrainScreenFlash(){//flash colors on the brain screen
     for(int i=0; i<10; i++){
         Brain.Screen.clearScreen(vex::color::orange);
@@ -69,7 +69,7 @@ void BrainScreenFlash(){//flash colors on the brain screen
     }
     BrainScreenSetColor();
 }
-void BrainScreenPrintAutonos(bool render=false,bool UpdateVars=true){//print auton selection
+/*void BrainScreenPrintAutonos(bool render=false,bool UpdateVars=true){//print auton selection
     if(UpdateVars)  AutonSelFun();
     Brain.Screen.clearLine();
     if(FeildPos==StartPos::BackRed){            //red back
@@ -101,13 +101,13 @@ void BrainScreenPrintAutonos(bool render=false,bool UpdateVars=true){//print aut
         else if(AutoProg==ProgPot::Yellow)  Brain.Screen.print("Sniper");
     }
     if(render)  Brain.Screen.render();
-}
+}*/
 void BrainScreenPrintSensorAutoFeed(){//print the sensor values for the auto feed on the brain screen
-    Brain.Screen.print(PuncSen.value(vex::analogUnits::pct));
-    Brain.Screen.print(" , ");
     Brain.Screen.print(FeedSen1.value(vex::analogUnits::pct));
     Brain.Screen.print(" , ");
     Brain.Screen.print(FeedSen2.value(vex::analogUnits::pct));
+    Brain.Screen.print(" , ");
+    Brain.Screen.print(PuncSen.value(vex::analogUnits::pct));
 }
 void BrainScreenPrintStart(){//functions that run during the preauton
     BrainScreenSetColor();
@@ -144,7 +144,7 @@ int BrainScreenUsrFun(){
     BrainScreenUsrFunEnabled=true;
     while(BrainScreenUsrFunEnabled){
         BrainScreenSetColor();//clears screen
-        BrainScreenPrintAutonos();
+    //    BrainScreenPrintAutonos();
         //BallFeedVars();
         Brain.Screen.render();
         vex::task::sleep(25);

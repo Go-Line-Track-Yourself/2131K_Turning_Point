@@ -1,4 +1,4 @@
-int IntakeAuton(){
+/*int IntakeAuton(){
     IntakeAutonEnabled=true;
     IntakeAutoEnabled=true;//for intakeauto void
     while(IntakeAutonEnabled){
@@ -8,7 +8,7 @@ int IntakeAuton(){
         vex::task::sleep(20);
     }
     return 1;
-}
+}*/
 
 int DriveRamping(){
     DriveRampingEnabled=true;
@@ -83,12 +83,12 @@ int PuncherPosSpinToAutFun(){//make globle
     PuncherPosSpinToControlEnabled=true;//init
     PuncherPosSpinToControlRunEnabled=true;//enable spin to contorol to run
     while(PuncherPosSpinToControlEnabled){//while spining to target
-        PuncherPosSpinTo(PuncherDeg,true);//get to target,set the motor to spin
+        PuncherPosSpinTo(PuncherPosDeg);//get to target,set the motor to spin
         EndTimeSlice();
     }
     return 1;
 }
-void PuncherPosAut(int Deg,bool Wait=true,int EndWait=0){//Tar is 80 || 280 || 360;Tar PunPosFromChargedToReleased || PunPosFromReleasedToCharged || 360
+void PuncherPosAut(int Deg,bool Wait=true,int EndWait=50){//Tar is 80 || 280 || 360;Tar PunPosFromChargedToReleased || PunPosFromReleasedToCharged || 360
    PuncherPosDeg=Deg;
     vex::task PuncherPosSpinToAutTask(PuncherPosSpinToAutFun);
     if(Wait){
@@ -98,7 +98,13 @@ void PuncherPosAut(int Deg,bool Wait=true,int EndWait=0){//Tar is 80 || 280 || 3
         EndTimeSlice(EndWait);
     }
 }
+void intake(int time,int power){
+      IntakeMotor.resetRotation();
 
+      IntakeMotor.spin(vex::directionType::fwd,power,vex::velocityUnits::pct);
+      vex::task::sleep(time);
+      IntakeMotor.stop(vex::brakeType::hold);
+}
 void Turn(double Dis,int LPct=25,int RPct=25,int EndWait=TurnEndWait){//-left,+right
     int Dir=SGN(Dis);
     Dis=std::abs(Dis)/12.56;

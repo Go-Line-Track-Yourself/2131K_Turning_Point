@@ -30,9 +30,9 @@ void UserStart(){
     BLDriveMotor.setStopping(vex::brakeType::coast);
     BRDriveMotor.setStopping(vex::brakeType::coast);
 
-    vex::task ControllerScreenUsrTask(ControllerScreenUsrFun);
-    vex::task BrainScreenUsrTask(BrainScreenUsrFun);
-    vex::task BallUpDateTask(IntakeStateUpDate);
+//    vex::task ControllerScreenUsrTask(ControllerScreenUsrFun);
+//    vex::task BrainScreenUsrTask(BrainScreenUsrFun);
+//    vex::task BallUpDateTask(autointakeupdt());
 
     //IntakeAutoEnabled=true;
     DriveHold=false;
@@ -48,7 +48,7 @@ void AutoStart(){
     BLDriveMotor.setStopping(vex::brakeType::hold);
     BRDriveMotor.setStopping(vex::brakeType::hold);
 
-    vex::task ControllerScreenStartTask(ControllerScreenStartFun);
+  //  vex::task ControllerScreenStartTask(ControllerScreenStartFun);
     vex::task DriveRampingTask(DriveRamping);
-    vex::task IntakeAutonTask(IntakeAuton);
+//    vex::task IntakeAutonTask(IntakeAuton);
 }

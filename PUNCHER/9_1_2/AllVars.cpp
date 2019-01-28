@@ -46,7 +46,7 @@ bool L2Pressed=false;//brake toggle pressed
 bool UpPressed=false;//Drive Dir toggle pressed
 bool YPressed=false;//
 bool BPressed=false;//puncherposcontrol
-
+bool XPressed=false;
 //Task Bools
 bool IntakeStateUpDateEnabled=true;
 bool ComRumerEnabled=false;
@@ -91,7 +91,7 @@ enum class PuncherPositions {ShortTop,ShortMid};
 PuncherPositions PuncherPos=PuncherPositions::ShortTop;
 int PuncherPosPctSetting=0;
 bool PuncherSpinToControlRunEnabled=false;//dont continue to hit target
-int PuncherPosDeg=10;
+int PuncherPosDeg=90;
 bool PuncherPosSpinToControlRunEnabled=false;
 
 //Fliper

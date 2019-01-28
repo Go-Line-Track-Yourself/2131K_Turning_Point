@@ -1,192 +1,155 @@
-/*
-void AutFunFrontRed(){
-    Drive(24,100,-1);
-    Drive(3,50,500);
-    Drive(-28,100,-1);
-    DriveRecon(-15,500);
+void AutFunBlueBack(){
 
-    Drive(2,50);
-    Turn(-9.4);
-    Drive(1,25);
+    Drive(15);
+    IntakeSMS(100);
+    Drive(2,75);
+    vex::task::sleep(95);
+    IntakeSMS(0);
+    Drive(-21);
+    Drive(-6,50);
+    Drive(2);
+    Turn(-18.5);
+    Drive(47);
     Puncher();
-    Drive(10,100);
-    if(PuncBall)    Puncher();
-    Turn(-1.5);//slight turn to miss pole
-    // IntakeAutoEnabled=false;
-    Drive(2,100);
-
-    Turn(-3);//45deg turn get cap
-    Flip(FliperPosDown);
-    Drive(-8,100,0);
-    // IntakeAutoEnabled=true;
-    Drive(-15,25,750);
-    Flip(FliperPosIn);
-}
-void AutFunFrontBlue(){
-    Drive(24,100,-1);
-    Drive(3,50,500);
-    Drive(-28,100,-1);
-    DriveRecon(-15,500);
-
-    Drive(6,50);
-    Turn(9.3);//the good times
-   // Drive(1,25);
+    PuncherPosAut(90);
+    IntakeSMS(100);
+    vex::task::sleep(300);
     Puncher();
-    Drive(8,100);
-    if(PuncBall)    Puncher();
-    //Turn(1);//slight turn to miss pole
-    // IntakeAutoEnabled=false;
-    Drive(6,100);
+    Drive(20);
 
-    Turn(4);//45deg turn get cap
-    Flip(FliperPosDown);
-    Drive(-8,100,0);
-    // IntakeAutoEnabled=true;
-    Drive(-15,25,750);
-    Flip(FliperPosIn);
 }
-void AutFunBackRed(){
-    Drive(24,100,-1);
-    Drive(3,50,250);
-    Turn(-10);
-    Flip(FliperPosDown);
-    Drive(-9);
-    Flip(FliperPosIn);
-    Turn(18);
-    IntakeAutoEnabled=false;
-    Drive(-44,100);//get on platform
+void AutFunBlueFront(){
+
+//Turn(18.5); left
+Drive(15);
+IntakeSMS(80);
+Drive(2,75);
+vex::task::sleep(95);
+IntakeSMS(0);
+Drive(-21);
+Turn(-16.5);
+Drive(1.5);
+Puncher();
+PuncherPosAut(90);
+IntakeSMS(100);
+vex::task::sleep(600);
+Drive(1,75);
+Puncher();
+Turn(-1);
+Drive(21);
+Drive(-8);
+Turn(12.5);
+Drive(4);
+PuncherPosAut(0);
+Puncher();
+
 }
-void AutFunBackBlue(){
-  Drive(24);
-  Drive(3,50);
-  vex::task::sleep(500);
-  IntakeAutoEnabled=false;
-  Drive(-28);
-  DriveRecon(-15,500);
 
-  Turn(-5);
-  Flip(FliperPosDown);
-  Flip(FliperPosIn);
-  Turn(5);
+void AutFunRedBack(){
+    Drive(15);
+    IntakeSMS(100);
+    Drive(2,75);
+    vex::task::sleep(95);
+    IntakeSMS(0);
+    Drive(-21);
+    Drive(-6,50);
+    Drive(2);
+    Turn(17.5);
+    Drive(47);
+    Turn(-2);
+    Puncher();
+    PuncherPosAut(90);
+    IntakeSMS(100);
+    vex::task::sleep(300);
+    Puncher();
+    Drive(20);
+}
+void AutFunRedFront(){
 
-  Turn(-5);
+  Drive(15);
+  IntakeSMS(80);
+  Drive(2,75);
+  vex::task::sleep(95);
+  IntakeSMS(0);
+  Drive(-20);
+  Turn(17.7);
+  Drive(5.5,60);
   Puncher();
   PuncherPosAut(90);
+  Drive(1);
+  IntakeSMS(100);
+  vex::task::sleep(600);
   Puncher();
+  Turn(.3);
+  Drive(23.5);
 
 }
-void Sniper(){
-
-}
-void FrontSkills(){
-    Drive(24,100,-1);
-    Drive(3,50,500);
-    Drive(-28,100,-1);
-    DriveRecon(-15,500);
-
-    Drive(2,50);
-    Turn(-9.4);
-    Drive(1,25);
-    Puncher();
-    Drive(10,100);
-    if(PuncBall)    Puncher();
-    Turn(-1.5);//slight turn to miss pole
-    // IntakeAutoEnabled=false;
-    Drive(2,100);
-
-    Turn(-3);//45deg turn get cap
-    Flip(FliperPosDown);
-    Drive(-8,100,0);
-    // IntakeAutoEnabled=true;
-    Drive(-15,25,750);
-    Flip(FliperPosIn);
-    //=======================================
-    Turn(-4);//turn to wall
-    Drive(23,50);//drive to wall
-    DriveRecon(15,500);//recon
-    Drive(-3,50);//drive away form wall
-    Turn(-9.4);//turn perallel to wall
-    Drive(50,50);//drive perallel to wall && line up to park
-    Turn(9.4);//turn to park
-    Drive(2,50);//drive to wall
-    DriveRecon(15,250);//recon
-    Drive(-100);//drive on park
-}
-void BackSkills(){
-    Drive(27,100,500);
-    Drive(-28,100);
-    DriveRecon(-25,250);
-    DriveRecon(-10,250);
-    DriveRecon(-5,500);
-    Drive(2.5,50);
-    Turn(-87);
-    Drive(32,100);
-    Puncher();
-    //
-    Drive(12,100);
-    if(PuncBall)    Puncher();
-    Turn(-7);//slight turn to miss pole
-    // IntakeAutoEnabled=false;
-    Drive(3,100);
-
-    Turn(-24);//45deg turn get cap
-    Flip(FliperPosDown);
-    Drive(-8,100,0);
-    // IntakeAutoEnabled=true;
-    Drive(-15,25,750);
-    Flip(FliperPosIn);
-
-    Turn(43);//turn straight with feild tiles
-    Drive(-17);
-    Turn(84);//turn straight to cap
-    Drive(30);//pick up ball
-    Turn(-84);//turn to flags
-    DriveRecon(-25,1500);//straighten
-    Drive(2);//line up for first flag
-
-    if(PuncBall && FeedBall){
-        if(PuncBall)    Puncher();
-        Drive(12,100);
-        if(PuncBall)    Puncher();
-    }
-    else if(PuncBall && !FeedBall)    Puncher();
-
-
-
-}
-void Testing(){
-  Drive(24);
-  vex::task::sleep(500);
-  IntakeAutoEnabled=false;
-
-  Drive(-24);
-  Turn(11);
+void Skills(){
+/*  Drive(21);
+  Drive(-3);
+  IntakeSMS(50);
+  vex::task::sleep(60);
+  Drive(-20);
+  Drive(-6,50);
+  Drive(1);
+  Turn(17.5);
+  Drive(43);
   Puncher();
-  vex::task::sleep(500);
-  IntakeAutoEnabled=false;
   PuncherPosAut(90);
+  IntakeSMS(100);
+  vex::task::sleep(850);
+  IntakeSMS(0);
   Puncher();
-}
+  Drive(20);
+  Drive(-27.5);
+  Turn(-18.5);
+  Drive(20);
+  Drive(-3);
+  IntakeSMS(50);
+  vex::task::sleep(60);
+  IntakeSMS(0);
+  Drive(-10);
+  Turn(-17.5);
+  Drive(-2);
+  Flip(180);;
+  Flip(0);
+  Drive(-2);
+  Turn(18.5);
+  Drive(-10);
+  Drive(-3,75);
+  Drive(68);
+  Turn(33);
+  Drive(-5);
+  Flip(180);
+  Turn(18.5);
+  Drive(4);
+  Turn(-18.5);
+  IntakeSMS(100);
+  Drive(3.5);
+  IntakeSMS(0);*/
 
-void AutoSelRunFuns(){
-    if(FeildPos==StartPos::BackRed){
-        if(AutoProg==ProgPot::Pink)         BackSkills();//Skills
-        else if(AutoProg==ProgPot::Green)   AutFunBackRed();//Normal
-        else if(AutoProg==ProgPot::Yellow)  Sniper();//Sniper
-    }
-    else if(AutSel1.value(vex::analogUnits::pct)>50){
-        if(AutoProg==ProgPot::Pink)         FrontSkills();//Skills
-        else if(AutoProg==ProgPot::Green)   AutFunFrontRed();//Normal
-        else if(AutoProg==ProgPot::Yellow)  Sniper();//Sniper
-    }
-    else if(AutSel1.value(vex::analogUnits::pct)>17){
-        if(AutoProg==ProgPot::Pink)         Testing();//Skills
-        else if(AutoProg==ProgPot::Green)   AutFunFrontBlue();//Normal
-        else if(AutoProg==ProgPot::Yellow)  Sniper();//Sniper
-    }
-    else{
-        if(AutoProg==ProgPot::Pink)         Testing();//Skills
-        else if(AutoProg==ProgPot::Green)   AutFunBackBlue();//Normal
-        else if(AutoProg==ProgPot::Yellow)  Sniper();//Sniper
-    }
-}*/
+  Drive(28);
+  vex::task::sleep(95);
+  IntakeSMS(80);
+  vex::task::sleep(400);
+  IntakeSMS(0);
+  Drive(-22.5);
+  Turn(16.5);
+  Drive(4.75,60);
+  Puncher();
+  IntakeSMS(100);
+  PuncherPosAut(90);
+  Drive(1,50);
+  vex::task::sleep(600);
+  Puncher();
+  Turn(.8);
+  IntakeSMS(0);
+  Drive(23.5);
+  Drive(-60);
+  Turn(18.25);
+  Drive(6,50);
+  Drive(-87,100);
+
+
+
+}
