@@ -9,6 +9,9 @@
     }
     return 1;
 }*/
+void wait(int time){
+  vex::task::sleep(time);
+}
 
 int DriveRamping(){
     DriveRampingEnabled=true;
@@ -46,7 +49,7 @@ void DI(int L,int R){
     RDR.Pct=R;
     DriveSMS(LDR.Pct,LDR.Pct,RDR.Pct,RDR.Pct);
 }
-void Flip(int Val,bool Wait=true,int EndWait=FliperEndWait,int Pct=100){
+void Flip(int Val,bool Wait=true,int EndWait=FliperEndWait,int Pct=70){
     FliperRequested=Val;//used for both auton and usr needs to be reset
     FlipMotor.startRotateTo(Val,vex::rotationUnits::deg,Pct,vex::velocityUnits::pct);
     if(Wait){
@@ -181,6 +184,23 @@ void DriveRecon(int Pct,int Wait,int EndWait=250){
         Controller1.Screen.print("RECONED!END");
     }
 }
+void SlideRecon(int time, int power, int dir){
+    DriveRampingEnabled=false;
+    FLSMS(power*dir);
+    BLSMS(-power*dir);
+    FRSMS(-power*dir);
+    BRSMS(power*dir);
+
+    wait(time);
+
+    FLSMS(0);
+    BLSMS(0);
+    FRSMS(0);
+    BRSMS(0);
+
+    vex::task Ramping(DriveRamping);
+}
+
 void DriveWait(bool stop){
     if(stop)    DR(0,0);
     while(LDR.Pct!=0 || RDR.Pct!=0){EndTimeSlice(LDR.ChangeMsec);}

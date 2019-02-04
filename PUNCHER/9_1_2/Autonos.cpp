@@ -85,50 +85,54 @@ void AutFunRedFront(){
 
 }
 void Skills(){
-/*  Drive(21);
-  Drive(-3);
-  IntakeSMS(50);
-  vex::task::sleep(60);
-  Drive(-20);
-  Drive(-6,50);
-  Drive(1);
-  Turn(17.5);
-  Drive(43);
-  Puncher();
-  PuncherPosAut(90);
-  IntakeSMS(100);
-  vex::task::sleep(850);
-  IntakeSMS(0);
-  Puncher();
-  Drive(20);
-  Drive(-27.5);
-  Turn(-18.5);
-  Drive(20);
-  Drive(-3);
-  IntakeSMS(50);
-  vex::task::sleep(60);
-  IntakeSMS(0);
-  Drive(-10);
-  Turn(-17.5);
-  Drive(-2);
-  Flip(180);;
-  Flip(0);
-  Drive(-2);
-  Turn(18.5);
-  Drive(-10);
-  Drive(-3,75);
-  Drive(68);
-  Turn(33);
-  Drive(-5);
-  Flip(180);
-  Turn(18.5);
-  Drive(4);
-  Turn(-18.5);
-  IntakeSMS(100);
-  Drive(3.5);
-  IntakeSMS(0);*/
 
-  Drive(28);
+  Drive(8,50);
+  Puncher();
+  vex::task::sleep(100);
+  Turn(.2);
+  Drive(27);
+  Drive(-34.5);
+  Turn(-18.5);
+  Drive(-3,50);
+  Drive(23);
+  Drive(2,70);
+  IntakeSMS(100);
+  vex::task::sleep(300);
+  IntakeSMS(0);
+  vex::task::sleep(1000);
+  Drive(.5);
+  Turn(16.5);
+  Drive(4);
+  IntakeSMS(100);
+  vex::task::sleep(500);
+  Puncher();
+  IntakeSMS(0);
+  Turn(1);
+  Drive(27);
+  Drive(-13);
+  Turn(-17.5);
+  Drive(-4);
+  Flip(280);
+  Flip(0);
+  Drive(25);
+  Turn(35.5);
+  Drive(-3);
+  Flip(280);
+  Flip(0);
+  Drive(-.3);
+  Turn(-18.3);
+  Drive(12);
+  Drive(-27);
+  Turn(-18.5);
+  Drive(5);
+  Turn(18.5);
+  Drive(-15);
+  Turn(-18.5);
+  Drive(9,50);
+  Flip(280);
+  Drive(-86);
+
+  /*Drive(28);
   vex::task::sleep(95);
   IntakeSMS(80);
   vex::task::sleep(400);
@@ -148,7 +152,7 @@ void Skills(){
   Drive(-60);
   Turn(18.25);
   Drive(6,50);
-  Drive(-87,100);
+  Drive(-87,100);*/
 
 
 

@@ -146,6 +146,24 @@ void CapFlip(){
     FlipMotor.startRotateTo(400,vex::rotationUnits::deg,100,vex::velocityUnits::pct);
   }
 }*/
+/*void FlipperControll(){//fliper control
+    if(Controller1.ButtonLeft.pressing()) {
+        FlipMotor.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct);
+        manualOverride = true;
+    }
+    else if(Controller1.ButtonRight.pressing()) {
+        FlipMotor.spin(vex::directionType::rev, 100, vex::velocityUnits::pct);
+        manualOverride = true;
+    }
+    else if (manualOverride) {
+        FlipMotor.stop(vex::brakeType::brake);
+    }
+  }
+void FlipControll(){
+  if(Controller1.ButtonX.pressing())  {
+    FlipMotor.startRotateTo(100000,vex::rotationUnits::deg,100,vex::velocityUnits::pct);
+  }
+}*/
 void FlipperControll(){//fliper control
     if(Controller1.ButtonLeft.pressing()) {
         FlipMotor.spin(vex::directionType::fwd, 100, vex::velocityUnits::pct);
@@ -164,8 +182,12 @@ void FlipperControll(){//fliper control
     else if (manualOverride) {
         FlipMotor.stop(vex::brakeType::brake);
     }
-}
 
+    if(!Controller1.ButtonX.pressing() && FliperMotorConBtnPressed==true){
+        FliperMotorConBtnPressed=false;
+        manualOverride = false;
+    }
+}
 //------------------Drive voids----------------------//
 void setMechLFPower(int pct){
     if(pct==0)   FLDriveMotor.stop();

@@ -97,7 +97,7 @@ bool PuncherPosSpinToControlRunEnabled=false;
 //Fliper
 bool FliperMotorInverted = false;
 bool manualOverride=true;
-bool FliperMotorConBtnPressed;
+bool FliperMotorConBtnPressed = false;
 bool FliperManualControlEnabled=false;
 bool FliperPosControlEnabled=true;
 int FliperPosIn=-5;
